@@ -21,12 +21,14 @@
   body {
     background: var(--bg);
     min-height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     font-family: 'Space Mono', monospace;
     cursor: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 20px 0 40px;
   }
 
   @media (hover: none) { body { cursor: auto; } .cursor { display: none; } }
@@ -275,6 +277,42 @@
     transform: scale(1.05);
   }
 
+  /* BOUTON CÉLÉBRER — animations d'appel */
+  @keyframes btn-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(245,200,66,0.5), 0 0 20px rgba(245,200,66,0.2); transform: scale(1); }
+    50%       { box-shadow: 0 0 0 14px rgba(245,200,66,0), 0 0 40px rgba(245,200,66,0.4); transform: scale(1.06); }
+  }
+  @keyframes btn-shimmer {
+    0%   { left: -100%; }
+    60%, 100% { left: 100%; }
+  }
+  @keyframes btn-bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    30%       { transform: translateY(-6px) scale(1.04); }
+    60%       { transform: translateY(-2px) scale(1.02); }
+  }
+
+  .cta-btn.ready {
+    animation:
+      fade-in 0.6s ease forwards 3.2s,
+      btn-pulse 2s ease-in-out 3.4s infinite,
+      btn-bounce 3s ease-in-out 4s infinite;
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .cta-btn.ready::before {
+    animation: btn-shimmer 2.5s ease-in-out 3.6s infinite;
+  }
+  .cta-btn.ready::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 44px;
+    border: 1px solid rgba(245,200,66,0.3);
+    animation: btn-pulse 2s ease-in-out 3.4s infinite;
+    pointer-events: none;
+  }
+
   @keyframes fade-in { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
 
   .shooting-star {
@@ -346,37 +384,24 @@
   @media (max-width: 480px) {
     .ring-3 { display: none; }
     .message { font-size: 11px; }
+    .card { padding: clamp(20px,5vw,40px) clamp(14px,5vw,40px) clamp(40px,8vw,60px); }
   }
   @media (max-width: 360px) {
     .ring-2 { display: none; }
     .tag::before { content:'— '; } .tag::after { content:' —'; }
   }
   @media (max-height: 600px) {
-    .card { padding: 14px 20px; }
+    .card { padding: 14px 20px 30px; }
     .divider { margin: 10px auto; }
     .message { display: none; }
     .team-badges { display: none; }
   }
-
-  /* SOUND HINT */
-  .sound-hint {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 30px;
-    padding: 8px 20px;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: rgba(255,255,255,0.45);
-    z-index: 100;
-    pointer-events: none;
-    animation: fade-in 0.6s ease forwards 4s, hint-fade 0.6s ease forwards 9s;
-    opacity: 0;
+  /* Assure que le bouton est toujours visible sur petits écrans */
+  @media (max-height: 700px) and (max-width: 480px) {
+    .message { font-size: 10px; line-height: 1.7; }
+    .team-badges { gap: 6px; }
+    .badge { padding: 4px 10px; font-size: 9px; }
   }
-  @keyframes hint-fade { to { opacity: 0; } }
 </style>
 </head>
 <body>
@@ -425,7 +450,7 @@
     <div class="badge">🛠️ Les DevOps</div>
   </div>
 
-  <button class="cta-btn" id="celebrateBtn" onclick="bigCelebration()">
+  <button class="cta-btn ready" id="celebrateBtn" onclick="bigCelebration()">
     🎆 Célébrer !
   </button>
 </div>
