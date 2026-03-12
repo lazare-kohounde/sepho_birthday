@@ -1,1030 +1,1511 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Joyeux Anniversaire Séphora 🎂</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --gold: #f5c842;
-    --pink: #ff6eb4;
-    --cyan: #00f5ff;
-    --violet: #9b59ff;
-    --bg: #02010a;
-  }
-
-  html, body { width: 100%; height: 100%; }
-
-  body {
-    background: var(--bg);
-    min-height: 100vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    font-family: 'Space Mono', monospace;
-    cursor: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 0 40px;
-  }
-
-  @media (hover: none) { body { cursor: auto; } .cursor { display: none; } }
-
-  .cursor {
-    position: fixed;
-    width: 12px; height: 12px;
-    border-radius: 50%;
-    background: var(--pink);
-    pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: screen;
-    box-shadow: 0 0 15px var(--pink), 0 0 30px var(--pink);
-  }
-
-  #space {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 0;
-  }
-
-  #fireworks {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  .nebula {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.15;
-    animation: nebula-drift 8s ease-in-out infinite alternate;
-    pointer-events: none;
-  }
-  .nebula-1 { width: 500px; height: 500px; background: var(--violet); top: -100px; left: -100px; }
-  .nebula-2 { width: 400px; height: 400px; background: var(--pink);   bottom: -80px; right: -80px; animation-delay: -3s; }
-  .nebula-3 { width: 300px; height: 300px; background: var(--cyan);   top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: -5s; }
-  @keyframes nebula-drift {
-    0%   { transform: scale(1) translateY(0); }
-    100% { transform: scale(1.15) translateY(-20px); }
-  }
-
-  .card {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    padding: clamp(24px, 6vw, 60px) clamp(16px, 8vw, 80px);
-    max-width: min(700px, 96vw);
-    width: 100%;
-    animation: card-entrance 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
-    opacity: 0;
-  }
-  @keyframes card-entrance {
-    0%   { opacity: 0; transform: translateY(40px) scale(0.95); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
-  }
-
-  .orbit-ring {
-    position: fixed;
-    border-radius: 50%;
-    border: 1px solid transparent;
-    top: 50%; left: 50%;
-    transform: translate(-50%,-50%);
-    animation: spin linear infinite;
-    pointer-events: none;
-    z-index: 1;
-  }
-  .orbit-ring::before {
-    content: '✦';
-    position: absolute;
-    font-size: 14px;
-    color: var(--gold);
-    top: -8px; left: 50%;
-    transform: translateX(-50%);
-    text-shadow: 0 0 10px var(--gold);
-  }
-  .ring-1 { width: min(340px,85vw); height: min(340px,85vw); border-top-color: rgba(245,200,66,0.3); border-right-color: rgba(245,200,66,0.1); animation-duration: 12s; }
-  .ring-2 { width: min(420px,95vw); height: min(420px,95vw); border-left-color: rgba(255,110,180,0.3); border-bottom-color: rgba(255,110,180,0.1); animation-duration: 18s; animation-direction: reverse; }
-  .ring-2::before { content:'◆'; color:var(--pink); font-size:10px; top:auto; bottom:-6px; text-shadow:0 0 10px var(--pink); }
-  .ring-3 { width: min(500px,98vw); height: min(500px,98vw); border-top-color: rgba(0,245,255,0.2); border-left-color: rgba(0,245,255,0.1); animation-duration: 25s; }
-  .ring-3::before { content:'★'; color:var(--cyan); font-size:12px; text-shadow:0 0 10px var(--cyan); }
-  @keyframes spin { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
-
-  .tag {
-    display: inline-block;
-    font-size: clamp(8px,2vw,10px);
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--cyan);
-    opacity: 0;
-    animation: fade-in 0.6s ease forwards 0.8s;
-    margin-bottom: 20px;
-  }
-  .tag::before { content: '——  '; }
-  .tag::after  { content: '  ——'; }
-
-  .happy {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(14px,3.5vw,22px);
-    color: rgba(255,255,255,0.6);
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    opacity: 0;
-    animation: fade-in 0.6s ease forwards 1s;
-    margin-bottom: 8px;
-  }
-
-  .name {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: clamp(44px,12vw,90px);
-    line-height: 1;
-    background: linear-gradient(135deg, var(--gold) 0%, var(--pink) 50%, var(--cyan) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    opacity: 0;
-    animation: name-reveal 1s cubic-bezier(0.16,1,0.3,1) forwards 1.2s;
-    filter: drop-shadow(0 0 30px rgba(245,200,66,0.4));
-  }
-  @keyframes name-reveal {
-    0%   { opacity: 0; transform: scale(0.8) translateY(20px); letter-spacing: 20px; }
-    100% { opacity: 1; transform: scale(1) translateY(0); letter-spacing: normal; }
-  }
-
-  .birthday-line {
-    font-size: clamp(9px,2vw,13px);
-    letter-spacing: clamp(3px,1.5vw,8px);
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-top: 6px;
-    opacity: 0;
-    animation: fade-in 0.6s ease forwards 1.8s;
-  }
-
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin: clamp(18px,4vw,32px) auto;
-    max-width: 400px;
-    opacity: 0;
-    animation: fade-in 0.6s ease forwards 2s;
-  }
-  .divider-line { flex:1; height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); }
-  .divider-icon { color:var(--pink); font-size:18px; animation: pulse 2s ease-in-out infinite; }
-  @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.3);} }
-
-  .message {
-    color: rgba(255,255,255,0.75);
-    font-size: clamp(11px,2.5vw,13px);
-    line-height: 1.9;
-    max-width: 480px;
-    margin: 0 auto clamp(18px,4vw,32px);
-    opacity: 0;
-    animation: fade-in 0.8s ease forwards 2.2s;
-  }
-  .message .highlight      { color: var(--cyan); font-weight: 700; }
-  .message .highlight-gold { color: var(--gold); font-weight: 700; }
-
-  .code-badge {
-    display: inline-block;
-    background: rgba(155,89,255,0.15);
-    border: 1px solid rgba(155,89,255,0.4);
-    border-radius: 6px;
-    padding: 3px 10px;
-    font-size: clamp(9px,2vw,11px);
-    color: var(--violet);
-    font-family: 'Space Mono', monospace;
-    margin: 2px 3px;
-  }
-
-  .from {
-    font-size: clamp(9px,2vw,11px);
-    letter-spacing: 3px;
-    color: rgba(255,255,255,0.35);
-    text-transform: uppercase;
-    opacity: 0;
-    animation: fade-in 0.6s ease forwards 2.8s;
-    margin-bottom: 12px;
-  }
-
-  .team-badges {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fade-in 0.6s ease forwards 3s;
-  }
-  .badge {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 20px;
-    padding: 5px 12px;
-    font-size: clamp(9px,2vw,11px);
-    color: rgba(255,255,255,0.6);
-    transition: all 0.3s ease;
-    cursor: none;
-  }
-  .badge:hover {
-    background: rgba(255,110,180,0.15);
-    border-color: var(--pink);
-    color: var(--pink);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(255,110,180,0.2);
-  }
-
-  .cta-btn {
-    margin-top: clamp(20px,4vw,36px);
-    display: inline-block;
-    padding: clamp(10px,2.5vw,14px) clamp(24px,6vw,40px);
-    border: 1px solid var(--gold);
-    border-radius: 40px;
-    color: var(--gold);
-    font-family: 'Space Mono', monospace;
-    font-size: clamp(10px,2.5vw,12px);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    cursor: none;
-    opacity: 0;
-    animation: fade-in 0.6s ease forwards 3.2s;
-    transition: all 0.3s ease;
-    background: transparent;
-    position: relative;
-    overflow: hidden;
-    -webkit-tap-highlight-color: transparent;
-    border-width: 1px;
-  }
-  .cta-btn::before {
-    content: '';
-    position: absolute;
-    top:0; left:-100%;
-    width:100%; height:100%;
-    background: linear-gradient(90deg, transparent, rgba(245,200,66,0.15), transparent);
-    transition: left 0.4s ease;
-  }
-  .cta-btn:hover::before { left: 100%; }
-  .cta-btn:hover {
-    background: rgba(245,200,66,0.1);
-    box-shadow: 0 0 30px rgba(245,200,66,0.3);
-    transform: scale(1.05);
-  }
-
-  /* BOUTON CÉLÉBRER — animations d'appel */
-  @keyframes btn-pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(245,200,66,0.5), 0 0 20px rgba(245,200,66,0.2); transform: scale(1); }
-    50%       { box-shadow: 0 0 0 14px rgba(245,200,66,0), 0 0 40px rgba(245,200,66,0.4); transform: scale(1.06); }
-  }
-  @keyframes btn-shimmer {
-    0%   { left: -100%; }
-    60%, 100% { left: 100%; }
-  }
-  @keyframes btn-bounce {
-    0%, 100% { transform: translateY(0) scale(1); }
-    30%       { transform: translateY(-6px) scale(1.04); }
-    60%       { transform: translateY(-2px) scale(1.02); }
-  }
-
-  .cta-btn.ready {
-    animation:
-      fade-in 0.6s ease forwards 3.2s,
-      btn-pulse 2s ease-in-out 3.4s infinite,
-      btn-bounce 3s ease-in-out 4s infinite;
-    border-color: var(--gold);
-    color: var(--gold);
-  }
-  .cta-btn.ready::before {
-    animation: btn-shimmer 2.5s ease-in-out 3.6s infinite;
-  }
-  .cta-btn.ready::after {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: 44px;
-    border: 1px solid rgba(245,200,66,0.3);
-    animation: btn-pulse 2s ease-in-out 3.4s infinite;
-    pointer-events: none;
-  }
-
-  @keyframes fade-in { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
-
-  .shooting-star {
-    position: fixed;
-    width: 2px; height: 2px;
-    background: white;
-    border-radius: 50%;
-    animation: shoot linear infinite;
-    z-index: 1;
-    pointer-events: none;
-  }
-  @keyframes shoot {
-    0%   { transform: translateX(0) translateY(0) scaleX(1); opacity:1; }
-    100% { transform: translateX(300px) translateY(300px) scaleX(80); opacity:0; }
-  }
-
-  .confetti-piece {
-    position: fixed;
-    border-radius: 2px;
-    animation: confetti-fall linear forwards;
-    z-index: 20;
-    pointer-events: none;
-  }
-  @keyframes confetti-fall {
-    0%   { transform: translateY(-20px) rotate(0deg); opacity:1; }
-    100% { transform: translateY(100vh) rotate(720deg); opacity:0; }
-  }
-
-  .name:hover { animation: glitch 0.3s ease, name-reveal 0s; }
-  @keyframes glitch {
-    0%   { filter: drop-shadow(0 0 30px rgba(245,200,66,0.4)); }
-    20%  { filter: drop-shadow(-3px 0 var(--cyan)) drop-shadow(3px 0 var(--pink)); }
-    40%  { filter: drop-shadow(0 0 30px rgba(245,200,66,0.4)); }
-    60%  { filter: drop-shadow(-2px 0 var(--pink)) drop-shadow(2px 0 var(--cyan)); }
-    80%  { filter: drop-shadow(0 0 30px rgba(245,200,66,0.4)); }
-    100% { filter: drop-shadow(0 0 50px rgba(245,200,66,0.6)); }
-  }
-
-  #balloon-container {
-    position: fixed; top:0; left:0;
-    width:100%; height:100%;
-    pointer-events: none;
-    z-index: 3;
-    overflow: hidden;
-  }
-  .balloon-wrap {
-    position: absolute;
-    bottom: -220px;
-    animation: balloon-float linear infinite;
-    pointer-events: auto;
-    cursor: none;
-  }
-  .balloon-inner {
-    animation: balloon-sway ease-in-out infinite alternate;
-    transform-origin: bottom center;
-  }
-  @keyframes balloon-float {
-    0%   { bottom:-220px; opacity:0; }
-    4%   { opacity:1; }
-    96%  { opacity:1; }
-    100% { bottom:110vh; opacity:0; }
-  }
-  @keyframes balloon-sway {
-    0%   { transform: rotate(-9deg); }
-    100% { transform: rotate(9deg); }
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 480px) {
-    .ring-3 { display: none; }
-    .message { font-size: 11px; }
-    .card { padding: clamp(20px,5vw,40px) clamp(14px,5vw,40px) clamp(40px,8vw,60px); }
-  }
-  @media (max-width: 360px) {
-    .ring-2 { display: none; }
-    .tag::before { content:'— '; } .tag::after { content:' —'; }
-  }
-  @media (max-height: 600px) {
-    .card { padding: 14px 20px 30px; }
-    .divider { margin: 10px auto; }
-    .message { display: none; }
-    .team-badges { display: none; }
-  }
-  /* Assure que le bouton est toujours visible sur petits écrans */
-  @media (max-height: 700px) and (max-width: 480px) {
-    .message { font-size: 10px; line-height: 1.7; }
-    .team-badges { gap: 6px; }
-    .badge { padding: 4px 10px; font-size: 9px; }
-  }
-</style>
-</head>
-<body>
-
-<div class="cursor" id="cursor"></div>
-<div id="balloon-container"></div>
-
-<div class="nebula nebula-1"></div>
-<div class="nebula nebula-2"></div>
-<div class="nebula nebula-3"></div>
-
-<canvas id="space"></canvas>
-<canvas id="fireworks"></canvas>
-
-<div class="orbit-ring ring-1"></div>
-<div class="orbit-ring ring-2"></div>
-<div class="orbit-ring ring-3"></div>
-
-<div class="card">
-  <div class="tag" id="dateTag">🚀</div>
-  <div class="happy">Joyeux Anniversaire</div>
-  <div class="name">Séphora</div>
-  <div class="birthday-line">✦ &nbsp; Aujourd'hui tu brilles &nbsp; ✦</div>
-
-  <div class="divider">
-    <div class="divider-line"></div>
-    <div class="divider-icon">🎂</div>
-    <div class="divider-line"></div>
-  </div>
-
-  <div class="message">
-    Dans notre équipe, tu es notre <span class="highlight">feature la plus stable</span> —
-    jamais de bug dans ton sourire, zéro regression dans ta bonne humeur.<br><br>
-    Aujourd'hui on <span class="code-badge">push</span> toute notre affection,
-    on <span class="code-badge">merge</span> nos vœux les plus sincères,
-    et on <span class="code-badge">deploy</span> en prod : <span class="highlight-gold">bonne fête à toi ! 🥂</span><br><br>
-    Que cette nouvelle année soit remplie de <span class="highlight">commits propres</span>,
-    de déploiements sans stress et d'instants mémorables. ✨
-  </div>
-
-  <div class="from">Avec tout notre amour — tes collègues devs</div>
-
-  <div class="team-badges">
-    <div class="badge">💻 L'équipe Frontend</div>
-    <div class="badge">⚙️ L'équipe Backend</div>
-    <div class="badge">🛠️ Les DevOps</div>
-  </div>
-
-  <button class="cta-btn ready" id="celebrateBtn" onclick="bigCelebration()">
-    🎆 Célébrer !
-  </button>
-</div>
-
-<script>
-// ── CURSOR ──────────────────────────────────────────────────
-const cursor = document.getElementById('cursor');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX - 6 + 'px';
-  cursor.style.top  = e.clientY - 6 + 'px';
-});
-
-// ── CANVAS SETUP ────────────────────────────────────────────
-const spaceCanvas = document.getElementById('space');
-const sCtx = spaceCanvas.getContext('2d');
-const fwCanvas = document.getElementById('fireworks');
-const fCtx = fwCanvas.getContext('2d');
-let W = 0, H = 0;
-
-function resize() {
-  W = window.innerWidth;
-  H = window.innerHeight;
-  spaceCanvas.width  = fwCanvas.width  = W;
-  spaceCanvas.height = fwCanvas.height = H;
-}
-resize();
-window.addEventListener('resize', resize);
-
-// ── STARS & PARTICLES ───────────────────────────────────────
-let stars = [], particles = [];
-for (let i = 0; i < 200; i++) stars.push({
-  x: Math.random()*2000, y: Math.random()*2000,
-  r: Math.random()*1.5, twinkle: Math.random()*Math.PI*2
-});
-for (let i = 0; i < 60; i++) particles.push({
-  x: Math.random()*2000, y: Math.random()*2000,
-  r: Math.random()*2+1,
-  vx: (Math.random()-.5)*.3, vy: (Math.random()-.5)*.3,
-  color: ['#f5c842','#ff6eb4','#00f5ff','#9b59ff','#ffffff'][Math.floor(Math.random()*5)],
-  opacity: Math.random()*.6+.2, pulse: Math.random()*Math.PI*2
-});
-
-(function drawStars() {
-  sCtx.clearRect(0,0,W,H);
-  stars.forEach(s => {
-    s.twinkle += 0.02;
-    const tw = (Math.sin(s.twinkle)+1)/2;
-    sCtx.beginPath();
-    sCtx.arc(s.x%W, s.y%H, s.r, 0, Math.PI*2);
-    sCtx.fillStyle = `rgba(255,255,255,${0.2+tw*.8})`;
-    sCtx.fill();
-  });
-  particles.forEach(p => {
-    p.x = (p.x+p.vx+W)%W; p.y = (p.y+p.vy+H)%H;
-    p.pulse += 0.03;
-    const sc = 0.7+0.3*Math.sin(p.pulse);
-    sCtx.beginPath();
-    sCtx.arc(p.x, p.y, p.r*sc, 0, Math.PI*2);
-    sCtx.fillStyle = p.color;
-    sCtx.globalAlpha = p.opacity*sc;
-    sCtx.shadowBlur = 8; sCtx.shadowColor = p.color;
-    sCtx.fill();
-    sCtx.globalAlpha = 1; sCtx.shadowBlur = 0;
-  });
-  requestAnimationFrame(drawStars);
-})();
-
-// ── FIREWORKS ───────────────────────────────────────────────
-const fwPalette = ['#ff6eb4','#f5c842','#00f5ff','#9b59ff','#ff4757','#2ed573','#ffffff','#ffa502','#ff6348'];
-let rockets = [];
-
-class Rocket {
-  constructor(forced_x) {
-    this.x = forced_x !== undefined ? forced_x : W * (0.1 + Math.random() * 0.8);
-    this.y = H;
-    this.targetY = H * (0.08 + Math.random() * 0.42);
-    this.vy = -17 - Math.random() * 10;
-    this.color  = fwPalette[Math.floor(Math.random()*fwPalette.length)];
-    this.color2 = fwPalette[Math.floor(Math.random()*fwPalette.length)];
-    this.type = Math.floor(Math.random()*4); // 0=circle 1=star 2=ring 3=willow
-    this.trail = [];
-    this.sparks = [];
-    this.exploded = false;
-    this.done = false;
-  }
-
-  explode() {
-    this.exploded = true;
-    const n = 90 + Math.floor(Math.random()*90);
-    for (let i = 0; i < n; i++) {
-      let angle, speed;
-      if (this.type === 1) { // star
-        const rays = 6 + Math.floor(Math.random()*5);
-        angle = ((Math.floor(i/(n/rays))/rays)*Math.PI*2) + (Math.random()-.5)*.35;
-        speed = 2 + Math.random()*5;
-      } else if (this.type === 2) { // ring
-        angle = (i/n)*Math.PI*2;
-        speed = 4 + Math.random()*1.5;
-      } else { // circle / willow
-        angle = Math.random()*Math.PI*2;
-        speed = 1 + Math.random()*6;
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Joyeux Anniversaire Séphora 🎂</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
-      this.sparks.push({
-        x: this.x, y: this.y,
-        vx: Math.cos(angle)*speed,
-        vy: Math.sin(angle)*speed,
-        color: Math.random()<.35 ? this.color2 : this.color,
-        life: 1,
-        decay: 0.011 + Math.random()*0.018,
-        size: 1.5 + Math.random()*2.5,
-        willow: this.type === 3
+
+      :root {
+        --gold: #f5c842;
+        --pink: #ff6eb4;
+        --cyan: #00f5ff;
+        --violet: #9b59ff;
+        --bg: #02010a;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+      }
+
+      body {
+        background: var(--bg);
+        min-height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        font-family: "Space Mono", monospace;
+        cursor: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 0 40px;
+      }
+
+      @media (hover: none) {
+        body {
+          cursor: auto;
+        }
+        .cursor {
+          display: none;
+        }
+      }
+
+      .cursor {
+        position: fixed;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--pink);
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: screen;
+        box-shadow:
+          0 0 15px var(--pink),
+          0 0 30px var(--pink);
+      }
+
+      #space {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+      }
+
+      #fireworks {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      .nebula {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.15;
+        animation: nebula-drift 8s ease-in-out infinite alternate;
+        pointer-events: none;
+      }
+      .nebula-1 {
+        width: 500px;
+        height: 500px;
+        background: var(--violet);
+        top: -100px;
+        left: -100px;
+      }
+      .nebula-2 {
+        width: 400px;
+        height: 400px;
+        background: var(--pink);
+        bottom: -80px;
+        right: -80px;
+        animation-delay: -3s;
+      }
+      .nebula-3 {
+        width: 300px;
+        height: 300px;
+        background: var(--cyan);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation-delay: -5s;
+      }
+      @keyframes nebula-drift {
+        0% {
+          transform: scale(1) translateY(0);
+        }
+        100% {
+          transform: scale(1.15) translateY(-20px);
+        }
+      }
+
+      .card {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        padding: clamp(24px, 6vw, 60px) clamp(16px, 8vw, 80px);
+        max-width: min(700px, 96vw);
+        width: 100%;
+        animation: card-entrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        opacity: 0;
+      }
+      @keyframes card-entrance {
+        0% {
+          opacity: 0;
+          transform: translateY(40px) scale(0.95);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .orbit-ring {
+        position: fixed;
+        border-radius: 50%;
+        border: 1px solid transparent;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: spin linear infinite;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .orbit-ring::before {
+        content: "✦";
+        position: absolute;
+        font-size: 14px;
+        color: var(--gold);
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-shadow: 0 0 10px var(--gold);
+      }
+      .ring-1 {
+        width: min(340px, 85vw);
+        height: min(340px, 85vw);
+        border-top-color: rgba(245, 200, 66, 0.3);
+        border-right-color: rgba(245, 200, 66, 0.1);
+        animation-duration: 12s;
+      }
+      .ring-2 {
+        width: min(420px, 95vw);
+        height: min(420px, 95vw);
+        border-left-color: rgba(255, 110, 180, 0.3);
+        border-bottom-color: rgba(255, 110, 180, 0.1);
+        animation-duration: 18s;
+        animation-direction: reverse;
+      }
+      .ring-2::before {
+        content: "◆";
+        color: var(--pink);
+        font-size: 10px;
+        top: auto;
+        bottom: -6px;
+        text-shadow: 0 0 10px var(--pink);
+      }
+      .ring-3 {
+        width: min(500px, 98vw);
+        height: min(500px, 98vw);
+        border-top-color: rgba(0, 245, 255, 0.2);
+        border-left-color: rgba(0, 245, 255, 0.1);
+        animation-duration: 25s;
+      }
+      .ring-3::before {
+        content: "★";
+        color: var(--cyan);
+        font-size: 12px;
+        text-shadow: 0 0 10px var(--cyan);
+      }
+      @keyframes spin {
+        from {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        to {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+
+      .tag {
+        display: inline-block;
+        font-size: clamp(8px, 2vw, 10px);
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--cyan);
+        opacity: 0;
+        animation: fade-in 0.6s ease forwards 0.8s;
+        margin-bottom: 20px;
+      }
+      .tag::before {
+        content: "——  ";
+      }
+      .tag::after {
+        content: "  ——";
+      }
+
+      .happy {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: clamp(14px, 3.5vw, 22px);
+        color: rgba(255, 255, 255, 0.6);
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        opacity: 0;
+        animation: fade-in 0.6s ease forwards 1s;
+        margin-bottom: 8px;
+      }
+
+      .name {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        font-size: clamp(44px, 12vw, 90px);
+        line-height: 1;
+        background: linear-gradient(
+          135deg,
+          var(--gold) 0%,
+          var(--pink) 50%,
+          var(--cyan) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        opacity: 0;
+        animation: name-reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.2s;
+        filter: drop-shadow(0 0 30px rgba(245, 200, 66, 0.4));
+      }
+      @keyframes name-reveal {
+        0% {
+          opacity: 0;
+          transform: scale(0.8) translateY(20px);
+          letter-spacing: 20px;
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+          letter-spacing: normal;
+        }
+      }
+
+      .birthday-line {
+        font-size: clamp(9px, 2vw, 13px);
+        letter-spacing: clamp(3px, 1.5vw, 8px);
+        color: var(--gold);
+        text-transform: uppercase;
+        margin-top: 6px;
+        opacity: 0;
+        animation: fade-in 0.6s ease forwards 1.8s;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: clamp(18px, 4vw, 32px) auto;
+        max-width: 400px;
+        opacity: 0;
+        animation: fade-in 0.6s ease forwards 2s;
+      }
+      .divider-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+      }
+      .divider-icon {
+        color: var(--pink);
+        font-size: 18px;
+        animation: pulse 2s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.3);
+        }
+      }
+
+      .message {
+        color: rgba(255, 255, 255, 0.75);
+        font-size: clamp(11px, 2.5vw, 13px);
+        line-height: 1.9;
+        max-width: 480px;
+        margin: 0 auto clamp(18px, 4vw, 32px);
+        opacity: 0;
+        animation: fade-in 0.8s ease forwards 2.2s;
+      }
+      .message .highlight {
+        color: var(--cyan);
+        font-weight: 700;
+      }
+      .message .highlight-gold {
+        color: var(--gold);
+        font-weight: 700;
+      }
+
+      .code-badge {
+        display: inline-block;
+        background: rgba(155, 89, 255, 0.15);
+        border: 1px solid rgba(155, 89, 255, 0.4);
+        border-radius: 6px;
+        padding: 3px 10px;
+        font-size: clamp(9px, 2vw, 11px);
+        color: var(--violet);
+        font-family: "Space Mono", monospace;
+        margin: 2px 3px;
+      }
+
+      .from {
+        font-size: clamp(9px, 2vw, 11px);
+        letter-spacing: 3px;
+        color: rgba(255, 255, 255, 0.35);
+        text-transform: uppercase;
+        opacity: 0;
+        animation: fade-in 0.6s ease forwards 2.8s;
+        margin-bottom: 12px;
+      }
+
+      .team-badges {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        flex-wrap: wrap;
+        opacity: 0;
+        animation: fade-in 0.6s ease forwards 3s;
+      }
+      .badge {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 5px 12px;
+        font-size: clamp(9px, 2vw, 11px);
+        color: rgba(255, 255, 255, 0.6);
+        transition: all 0.3s ease;
+        cursor: none;
+      }
+      .badge:hover {
+        background: rgba(255, 110, 180, 0.15);
+        border-color: var(--pink);
+        color: var(--pink);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(255, 110, 180, 0.2);
+      }
+
+      .cta-btn {
+        margin-top: clamp(20px, 4vw, 36px);
+        display: inline-block;
+        padding: clamp(10px, 2.5vw, 14px) clamp(24px, 6vw, 40px);
+        border: 1px solid var(--gold);
+        border-radius: 40px;
+        color: var(--gold);
+        font-family: "Space Mono", monospace;
+        font-size: clamp(10px, 2.5vw, 12px);
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        cursor: none;
+        opacity: 0;
+        animation: fade-in 0.6s ease forwards 3.2s;
+        transition: all 0.3s ease;
+        background: transparent;
+        position: relative;
+        overflow: hidden;
+        -webkit-tap-highlight-color: transparent;
+        border-width: 1px;
+      }
+      .cta-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(245, 200, 66, 0.15),
+          transparent
+        );
+        transition: left 0.4s ease;
+      }
+      .cta-btn:hover::before {
+        left: 100%;
+      }
+      .cta-btn:hover {
+        background: rgba(245, 200, 66, 0.1);
+        box-shadow: 0 0 30px rgba(245, 200, 66, 0.3);
+        transform: scale(1.05);
+      }
+
+      /* BOUTON CÉLÉBRER — animations d'appel */
+      @keyframes btn-pulse {
+        0%,
+        100% {
+          box-shadow:
+            0 0 0 0 rgba(245, 200, 66, 0.5),
+            0 0 20px rgba(245, 200, 66, 0.2);
+          transform: scale(1);
+        }
+        50% {
+          box-shadow:
+            0 0 0 14px rgba(245, 200, 66, 0),
+            0 0 40px rgba(245, 200, 66, 0.4);
+          transform: scale(1.06);
+        }
+      }
+      @keyframes btn-shimmer {
+        0% {
+          left: -100%;
+        }
+        60%,
+        100% {
+          left: 100%;
+        }
+      }
+      @keyframes btn-bounce {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        30% {
+          transform: translateY(-6px) scale(1.04);
+        }
+        60% {
+          transform: translateY(-2px) scale(1.02);
+        }
+      }
+
+      .cta-btn.ready {
+        animation:
+          fade-in 0.6s ease forwards 3.2s,
+          btn-pulse 2s ease-in-out 3.4s infinite,
+          btn-bounce 3s ease-in-out 4s infinite;
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+      .cta-btn.ready::before {
+        animation: btn-shimmer 2.5s ease-in-out 3.6s infinite;
+      }
+      .cta-btn.ready::after {
+        content: "";
+        position: absolute;
+        inset: -3px;
+        border-radius: 44px;
+        border: 1px solid rgba(245, 200, 66, 0.3);
+        animation: btn-pulse 2s ease-in-out 3.4s infinite;
+        pointer-events: none;
+      }
+
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .shooting-star {
+        position: fixed;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: shoot linear infinite;
+        z-index: 1;
+        pointer-events: none;
+      }
+      @keyframes shoot {
+        0% {
+          transform: translateX(0) translateY(0) scaleX(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(300px) translateY(300px) scaleX(80);
+          opacity: 0;
+        }
+      }
+
+      .confetti-piece {
+        position: fixed;
+        border-radius: 2px;
+        animation: confetti-fall linear forwards;
+        z-index: 20;
+        pointer-events: none;
+      }
+      @keyframes confetti-fall {
+        0% {
+          transform: translateY(-20px) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+
+      .name:hover {
+        animation:
+          glitch 0.3s ease,
+          name-reveal 0s;
+      }
+      @keyframes glitch {
+        0% {
+          filter: drop-shadow(0 0 30px rgba(245, 200, 66, 0.4));
+        }
+        20% {
+          filter: drop-shadow(-3px 0 var(--cyan)) drop-shadow(3px 0 var(--pink));
+        }
+        40% {
+          filter: drop-shadow(0 0 30px rgba(245, 200, 66, 0.4));
+        }
+        60% {
+          filter: drop-shadow(-2px 0 var(--pink)) drop-shadow(2px 0 var(--cyan));
+        }
+        80% {
+          filter: drop-shadow(0 0 30px rgba(245, 200, 66, 0.4));
+        }
+        100% {
+          filter: drop-shadow(0 0 50px rgba(245, 200, 66, 0.6));
+        }
+      }
+
+      #balloon-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 3;
+        overflow: hidden;
+      }
+      .balloon-wrap {
+        position: absolute;
+        bottom: -220px;
+        animation: balloon-float linear infinite;
+        pointer-events: auto;
+        cursor: none;
+      }
+      .balloon-inner {
+        animation: balloon-sway ease-in-out infinite alternate;
+        transform-origin: bottom center;
+      }
+      @keyframes balloon-float {
+        0% {
+          bottom: -220px;
+          opacity: 0;
+        }
+        4% {
+          opacity: 1;
+        }
+        96% {
+          opacity: 1;
+        }
+        100% {
+          bottom: 110vh;
+          opacity: 0;
+        }
+      }
+      @keyframes balloon-sway {
+        0% {
+          transform: rotate(-9deg);
+        }
+        100% {
+          transform: rotate(9deg);
+        }
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 480px) {
+        .ring-3 {
+          display: none;
+        }
+        .message {
+          font-size: 11px;
+        }
+        .card {
+          padding: clamp(20px, 5vw, 40px) clamp(14px, 5vw, 40px)
+            clamp(40px, 8vw, 60px);
+        }
+      }
+      @media (max-width: 360px) {
+        .ring-2 {
+          display: none;
+        }
+        .tag::before {
+          content: "— ";
+        }
+        .tag::after {
+          content: " —";
+        }
+      }
+      @media (max-height: 600px) {
+        .card {
+          padding: 14px 20px 30px;
+        }
+        .divider {
+          margin: 10px auto;
+        }
+        .message {
+          display: none;
+        }
+        .team-badges {
+          display: none;
+        }
+      }
+      /* Assure que le bouton est toujours visible sur petits écrans */
+      @media (max-height: 700px) and (max-width: 480px) {
+        .message {
+          font-size: 10px;
+          line-height: 1.7;
+        }
+        .team-badges {
+          gap: 6px;
+        }
+        .badge {
+          padding: 4px 10px;
+          font-size: 9px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cursor" id="cursor"></div>
+    <div id="balloon-container"></div>
+
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+
+    <canvas id="space"></canvas>
+    <canvas id="fireworks"></canvas>
+
+    <div class="orbit-ring ring-1"></div>
+    <div class="orbit-ring ring-2"></div>
+    <div class="orbit-ring ring-3"></div>
+
+    <div class="card">
+      <div class="tag" id="dateTag">🚀</div>
+      <div class="happy">Joyeux Anniversaire</div>
+      <div class="name">Séphora</div>
+      <div class="birthday-line">✦ &nbsp; Aujourd'hui tu brilles &nbsp; ✦</div>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-icon">🎂</div>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="message">
+        Dans notre équipe, tu es notre
+        <span class="highlight">feature la plus stable</span> — jamais de bug
+        dans ton sourire, zéro regression dans ta bonne humeur.<br /><br />
+        Aujourd'hui on <span class="code-badge">push</span> toute notre
+        affection, on <span class="code-badge">merge</span> nos vœux les plus
+        sincères, et on <span class="code-badge">deploy</span> en prod :
+        <span class="highlight-gold">bonne fête à toi ! 🥂</span><br /><br />
+        Que cette nouvelle année soit remplie de
+        <span class="highlight">commits propres</span>, de déploiements sans
+        stress et d'instants mémorables. ✨
+      </div>
+
+      <div class="from">Avec tout notre amour — tes collègues devs</div>
+
+      <div class="team-badges">
+        <div class="badge">💻 L'équipe Frontend</div>
+        <div class="badge">⚙️ L'équipe Backend</div>
+        <div class="badge">🛠️ Les DevOps</div>
+      </div>
+
+      <button
+        class="cta-btn ready"
+        id="celebrateBtn"
+        onclick="bigCelebration()"
+      >
+        🎆 Célébrer !
+      </button>
+    </div>
+
+    <script>
+      // ── CURSOR ──────────────────────────────────────────────────
+      const cursor = document.getElementById("cursor");
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.left = e.clientX - 6 + "px";
+        cursor.style.top = e.clientY - 6 + "px";
       });
-    }
-    playFireworkSound();
-  }
 
-  update() {
-    if (!this.exploded) {
-      this.trail.push({x:this.x, y:this.y});
-      if (this.trail.length > 14) this.trail.shift();
-      this.vy *= 0.97;
-      this.y  += this.vy;
-      if (this.y <= this.targetY || this.vy > -1) this.explode();
-    } else {
-      this.sparks.forEach(s => {
-        s.vx *= 0.98; s.vy *= 0.98;
-        s.vy += s.willow ? 0.18 : 0.12;
-        s.x  += s.vx; s.y += s.vy;
-        s.life -= s.decay;
+      // ── CANVAS SETUP ────────────────────────────────────────────
+      const spaceCanvas = document.getElementById("space");
+      const sCtx = spaceCanvas.getContext("2d");
+      const fwCanvas = document.getElementById("fireworks");
+      const fCtx = fwCanvas.getContext("2d");
+      let W = 0,
+        H = 0;
+
+      function resize() {
+        W = window.innerWidth;
+        H = window.innerHeight;
+        spaceCanvas.width = fwCanvas.width = W;
+        spaceCanvas.height = fwCanvas.height = H;
+      }
+      resize();
+      window.addEventListener("resize", resize);
+
+      // ── STARS & PARTICLES ───────────────────────────────────────
+      let stars = [],
+        particles = [];
+      for (let i = 0; i < 200; i++)
+        stars.push({
+          x: Math.random() * 2000,
+          y: Math.random() * 2000,
+          r: Math.random() * 1.5,
+          twinkle: Math.random() * Math.PI * 2,
+        });
+      for (let i = 0; i < 60; i++)
+        particles.push({
+          x: Math.random() * 2000,
+          y: Math.random() * 2000,
+          r: Math.random() * 2 + 1,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          color: ["#f5c842", "#ff6eb4", "#00f5ff", "#9b59ff", "#ffffff"][
+            Math.floor(Math.random() * 5)
+          ],
+          opacity: Math.random() * 0.6 + 0.2,
+          pulse: Math.random() * Math.PI * 2,
+        });
+
+      (function drawStars() {
+        sCtx.clearRect(0, 0, W, H);
+        stars.forEach((s) => {
+          s.twinkle += 0.02;
+          const tw = (Math.sin(s.twinkle) + 1) / 2;
+          sCtx.beginPath();
+          sCtx.arc(s.x % W, s.y % H, s.r, 0, Math.PI * 2);
+          sCtx.fillStyle = `rgba(255,255,255,${0.2 + tw * 0.8})`;
+          sCtx.fill();
+        });
+        particles.forEach((p) => {
+          p.x = (p.x + p.vx + W) % W;
+          p.y = (p.y + p.vy + H) % H;
+          p.pulse += 0.03;
+          const sc = 0.7 + 0.3 * Math.sin(p.pulse);
+          sCtx.beginPath();
+          sCtx.arc(p.x, p.y, p.r * sc, 0, Math.PI * 2);
+          sCtx.fillStyle = p.color;
+          sCtx.globalAlpha = p.opacity * sc;
+          sCtx.shadowBlur = 8;
+          sCtx.shadowColor = p.color;
+          sCtx.fill();
+          sCtx.globalAlpha = 1;
+          sCtx.shadowBlur = 0;
+        });
+        requestAnimationFrame(drawStars);
+      })();
+
+      // ── FIREWORKS ───────────────────────────────────────────────
+      const fwPalette = [
+        "#ff6eb4",
+        "#f5c842",
+        "#00f5ff",
+        "#9b59ff",
+        "#ff4757",
+        "#2ed573",
+        "#ffffff",
+        "#ffa502",
+        "#ff6348",
+      ];
+      let rockets = [];
+
+      class Rocket {
+        constructor(forced_x) {
+          this.x =
+            forced_x !== undefined ? forced_x : W * (0.1 + Math.random() * 0.8);
+          this.y = H;
+          this.targetY = H * (0.08 + Math.random() * 0.42);
+          this.vy = -17 - Math.random() * 10;
+          this.color = fwPalette[Math.floor(Math.random() * fwPalette.length)];
+          this.color2 = fwPalette[Math.floor(Math.random() * fwPalette.length)];
+          this.type = Math.floor(Math.random() * 4); // 0=circle 1=star 2=ring 3=willow
+          this.trail = [];
+          this.sparks = [];
+          this.exploded = false;
+          this.done = false;
+        }
+
+        explode() {
+          this.exploded = true;
+          const n = 90 + Math.floor(Math.random() * 90);
+          for (let i = 0; i < n; i++) {
+            let angle, speed;
+            if (this.type === 1) {
+              // star
+              const rays = 6 + Math.floor(Math.random() * 5);
+              angle =
+                (Math.floor(i / (n / rays)) / rays) * Math.PI * 2 +
+                (Math.random() - 0.5) * 0.35;
+              speed = 2 + Math.random() * 5;
+            } else if (this.type === 2) {
+              // ring
+              angle = (i / n) * Math.PI * 2;
+              speed = 4 + Math.random() * 1.5;
+            } else {
+              // circle / willow
+              angle = Math.random() * Math.PI * 2;
+              speed = 1 + Math.random() * 6;
+            }
+            this.sparks.push({
+              x: this.x,
+              y: this.y,
+              vx: Math.cos(angle) * speed,
+              vy: Math.sin(angle) * speed,
+              color: Math.random() < 0.35 ? this.color2 : this.color,
+              life: 1,
+              decay: 0.011 + Math.random() * 0.018,
+              size: 1.5 + Math.random() * 2.5,
+              willow: this.type === 3,
+            });
+          }
+          playFireworkSound();
+        }
+
+        update() {
+          if (!this.exploded) {
+            this.trail.push({ x: this.x, y: this.y });
+            if (this.trail.length > 14) this.trail.shift();
+            this.vy *= 0.97;
+            this.y += this.vy;
+            if (this.y <= this.targetY || this.vy > -1) this.explode();
+          } else {
+            this.sparks.forEach((s) => {
+              s.vx *= 0.98;
+              s.vy *= 0.98;
+              s.vy += s.willow ? 0.18 : 0.12;
+              s.x += s.vx;
+              s.y += s.vy;
+              s.life -= s.decay;
+            });
+            this.sparks = this.sparks.filter((s) => s.life > 0);
+            if (!this.sparks.length) this.done = true;
+          }
+        }
+
+        draw() {
+          if (!this.exploded) {
+            this.trail.forEach((t, i) => {
+              fCtx.beginPath();
+              fCtx.arc(t.x, t.y, 2 * (i / this.trail.length), 0, Math.PI * 2);
+              fCtx.fillStyle = `rgba(255,220,120,${(i / this.trail.length) * 0.8})`;
+              fCtx.fill();
+            });
+            fCtx.beginPath();
+            fCtx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+            fCtx.fillStyle = "#fff";
+            fCtx.shadowBlur = 10;
+            fCtx.shadowColor = "#ffe";
+            fCtx.fill();
+            fCtx.shadowBlur = 0;
+          } else {
+            this.sparks.forEach((s) => {
+              fCtx.beginPath();
+              fCtx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2);
+              fCtx.fillStyle = s.color;
+              fCtx.globalAlpha = s.life;
+              fCtx.shadowBlur = 7;
+              fCtx.shadowColor = s.color;
+              fCtx.fill();
+              fCtx.globalAlpha = 1;
+              fCtx.shadowBlur = 0;
+            });
+          }
+        }
+      }
+
+      (function fwLoop() {
+        fCtx.clearRect(0, 0, W, H);
+        rockets = rockets.filter((r) => !r.done);
+        rockets.forEach((r) => {
+          r.update();
+          r.draw();
+        });
+        requestAnimationFrame(fwLoop);
+      })();
+
+      // ── WEB AUDIO ENGINE ────────────────────────────────────────
+      let audioCtx = null;
+      let audioUnlocked = false;
+
+      function getAC() {
+        if (!audioCtx)
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        return audioCtx;
+      }
+
+      // Unlock audio on first interaction (required by browsers)
+      function unlockAudio() {
+        if (audioUnlocked) return;
+        try {
+          const ac = getAC();
+          const silent = ac.createBuffer(1, 1, 22050);
+          const src = ac.createBufferSource();
+          src.buffer = silent;
+          src.connect(ac.destination);
+          src.start();
+          ac.resume();
+          audioUnlocked = true;
+        } catch (e) {}
+      }
+      document.addEventListener("click", unlockAudio, { once: false });
+      document.addEventListener("touchend", unlockAudio, { once: false });
+
+      // ─── Helper: make noise buffer ───────────────────────────────
+      function makeNoise(ac, dur) {
+        const buf = ac.createBuffer(
+          1,
+          Math.floor(ac.sampleRate * dur),
+          ac.sampleRate,
+        );
+        const data = buf.getChannelData(0);
+        for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+        return buf;
+      }
+
+      // ─── FIREWORK BOOM — deep thud + shimmer tail ────────────────
+      function playFireworkSound() {
+        try {
+          const ac = getAC();
+          if (ac.state === "suspended") ac.resume();
+          const now = ac.currentTime;
+
+          // 1. Deep pitched THUD (sine-based, not noise)
+          const thudOsc = ac.createOscillator();
+          thudOsc.type = "sine";
+          thudOsc.frequency.setValueAtTime(90 + Math.random() * 40, now);
+          thudOsc.frequency.exponentialRampToValueAtTime(30, now + 0.35);
+          const thudGain = ac.createGain();
+          thudGain.gain.setValueAtTime(1.6, now);
+          thudGain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+          thudOsc.connect(thudGain);
+          thudGain.connect(ac.destination);
+          thudOsc.start(now);
+          thudOsc.stop(now + 0.45);
+
+          // 2. Mid PUNCH — short noise burst shaped like a hit
+          const punchSrc = ac.createBufferSource();
+          punchSrc.buffer = makeNoise(ac, 0.12);
+          const punchFlt = ac.createBiquadFilter();
+          punchFlt.type = "bandpass";
+          punchFlt.frequency.value = 280;
+          punchFlt.Q.value = 0.8;
+          const punchGain = ac.createGain();
+          punchGain.gain.setValueAtTime(1.2, now);
+          punchGain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+          punchSrc.connect(punchFlt);
+          punchFlt.connect(punchGain);
+          punchGain.connect(ac.destination);
+          punchSrc.start(now);
+
+          // 3. SHIMMER tail — filtered high noise fading slowly (sparkle glitter sound)
+          const shimSrc = ac.createBufferSource();
+          shimSrc.buffer = makeNoise(ac, 1.8);
+          const shimFlt = ac.createBiquadFilter();
+          shimFlt.type = "highpass";
+          shimFlt.frequency.value = 4500;
+          const shimFlt2 = ac.createBiquadFilter();
+          shimFlt2.type = "lowpass";
+          shimFlt2.frequency.value = 9000;
+          const shimGain = ac.createGain();
+          shimGain.gain.setValueAtTime(0.0, now);
+          shimGain.gain.linearRampToValueAtTime(0.28, now + 0.08);
+          shimGain.gain.exponentialRampToValueAtTime(0.001, now + 1.8);
+          shimSrc.connect(shimFlt);
+          shimFlt.connect(shimFlt2);
+          shimFlt2.connect(shimGain);
+          shimGain.connect(ac.destination);
+          shimSrc.start(now + 0.05);
+
+          // 4. WHISTLE ascent (sine sweep up) — soft, musical
+          const wOsc = ac.createOscillator();
+          wOsc.type = "sine";
+          wOsc.frequency.setValueAtTime(300 + Math.random() * 150, now - 0.5);
+          wOsc.frequency.exponentialRampToValueAtTime(
+            1200 + Math.random() * 500,
+            now,
+          );
+          const wGain = ac.createGain();
+          wGain.gain.setValueAtTime(0.12, now - 0.5);
+          wGain.gain.exponentialRampToValueAtTime(0.001, now + 0.02);
+          wOsc.connect(wGain);
+          wGain.connect(ac.destination);
+          wOsc.start(now - 0.5);
+          wOsc.stop(now + 0.05);
+        } catch (e) {}
+      }
+
+      // ─── APPLAUSE + CROWD CHEER ──────────────────────────────────
+      function playApplause(duration = 4.0) {
+        try {
+          const ac = getAC();
+          if (ac.state === "suspended") ac.resume();
+          const now = ac.currentTime;
+
+          // Applause = many short noise bursts at random rate
+          for (let i = 0; i < Math.floor(duration * 18); i++) {
+            const t = now + i * (1 / 18) + (Math.random() - 0.5) * 0.03;
+            const src = ac.createBufferSource();
+            src.buffer = makeNoise(ac, 0.04 + Math.random() * 0.04);
+            const flt = ac.createBiquadFilter();
+            flt.type = "bandpass";
+            flt.frequency.value = 900 + Math.random() * 1200;
+            flt.Q.value = 0.5 + Math.random() * 1;
+            const g = ac.createGain();
+            // shape: fade in then slow fade out
+            const env =
+              Math.min(i / (duration * 18 * 0.25), 1) *
+              Math.max(0, 1 - (i / (duration * 18)) * 1.1);
+            g.gain.setValueAtTime(env * (0.06 + Math.random() * 0.08), t);
+            g.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+            src.connect(flt);
+            flt.connect(g);
+            g.connect(ac.destination);
+            src.start(t);
+          }
+
+          // Crowd CHEER — layered sine oscillators mimicking "yaaay"
+          const cheerFreqs = [220, 280, 350, 440, 520, 620, 700, 820];
+          cheerFreqs.forEach((f, idx) => {
+            const osc = ac.createOscillator();
+            osc.type = "sine";
+            // glide up slightly (excitement)
+            osc.frequency.setValueAtTime(
+              f * (0.9 + Math.random() * 0.2),
+              now + 0.1,
+            );
+            osc.frequency.linearRampToValueAtTime(
+              f * (1.05 + Math.random() * 0.15),
+              now + 0.6,
+            );
+            osc.frequency.linearRampToValueAtTime(
+              f * (0.95 + Math.random() * 0.1),
+              now + duration * 0.7,
+            );
+            const vib = ac.createOscillator(); // vibrato
+            vib.frequency.value = 5 + Math.random() * 3;
+            const vibGain = ac.createGain();
+            vibGain.gain.value = f * 0.012;
+            vib.connect(vibGain);
+            vibGain.connect(osc.frequency);
+            const g = ac.createGain();
+            g.gain.setValueAtTime(0.0001, now);
+            g.gain.linearRampToValueAtTime(
+              0.022 + Math.random() * 0.018,
+              now + 0.25,
+            );
+            g.gain.setValueAtTime(
+              0.022 + Math.random() * 0.018,
+              now + duration * 0.55,
+            );
+            g.gain.exponentialRampToValueAtTime(0.0001, now + duration * 0.95);
+            osc.connect(g);
+            g.connect(ac.destination);
+            osc.start(now);
+            osc.stop(now + duration);
+            vib.start(now);
+            vib.stop(now + duration);
+          });
+
+          // "Woooo!" high sweep
+          const wooOsc = ac.createOscillator();
+          wooOsc.type = "sine";
+          wooOsc.frequency.setValueAtTime(600, now + 0.05);
+          wooOsc.frequency.linearRampToValueAtTime(1100, now + 0.4);
+          wooOsc.frequency.linearRampToValueAtTime(800, now + 0.9);
+          const wooGain = ac.createGain();
+          wooGain.gain.setValueAtTime(0.0001, now + 0.05);
+          wooGain.gain.linearRampToValueAtTime(0.09, now + 0.2);
+          wooGain.gain.exponentialRampToValueAtTime(0.0001, now + 1.0);
+          wooOsc.connect(wooGain);
+          wooGain.connect(ac.destination);
+          wooOsc.start(now + 0.05);
+          wooOsc.stop(now + 1.0);
+        } catch (e) {}
+      }
+
+      // ─── HAPPY BIRTHDAY melody — boucle infinie ─────────────────
+      const HB_NOTES = [
+        { n: "C4", d: 0.3 },
+        { n: "C4", d: 0.1 },
+        { n: "D4", d: 0.4 },
+        { n: "C4", d: 0.4 },
+        { n: "F4", d: 0.4 },
+        { n: "E4", d: 0.8 },
+        { n: "C4", d: 0.3 },
+        { n: "C4", d: 0.1 },
+        { n: "D4", d: 0.4 },
+        { n: "C4", d: 0.4 },
+        { n: "G4", d: 0.4 },
+        { n: "F4", d: 0.8 },
+        { n: "C4", d: 0.3 },
+        { n: "C4", d: 0.1 },
+        { n: "C5", d: 0.4 },
+        { n: "A4", d: 0.4 },
+        { n: "F4", d: 0.4 },
+        { n: "E4", d: 0.4 },
+        { n: "D4", d: 0.8 },
+        { n: "A#4", d: 0.3 },
+        { n: "A#4", d: 0.1 },
+        { n: "A4", d: 0.4 },
+        { n: "F4", d: 0.4 },
+        { n: "G4", d: 0.4 },
+        { n: "F4", d: 1.0 },
+      ];
+      const NOTE_FREQ = {
+        C4: 261.63,
+        D4: 293.66,
+        E4: 329.63,
+        F4: 349.23,
+        G4: 392.0,
+        A4: 440.0,
+        "A#4": 466.16,
+        B4: 493.88,
+        C5: 523.25,
+        G5: 783.99,
+      };
+
+      // Durée totale d'une lecture (somme des durées + petit silence entre boucles)
+      const HB_TOTAL_DURATION = HB_NOTES.reduce((s, n) => s + n.d, 0) + 1.2; // ~8.8s + 1.2s pause
+
+      let hbLoopRunning = false;
+
+      function scheduleHBLoop(startTime) {
+        const ac = getAC();
+        let t = startTime;
+
+        HB_NOTES.forEach(({ n, d }) => {
+          const freq = NOTE_FREQ[n];
+          if (!freq) {
+            t += d;
+            return;
+          }
+          [1, 2, 3, 4].forEach((harmonic, hi) => {
+            const osc = ac.createOscillator();
+            osc.type = hi === 0 ? "triangle" : "sine";
+            osc.frequency.value = freq * harmonic;
+            const g = ac.createGain();
+            const vol = [0.45, 0.16, 0.07, 0.03][hi];
+            g.gain.setValueAtTime(0.0001, t);
+            g.gain.linearRampToValueAtTime(vol, t + 0.015);
+            g.gain.exponentialRampToValueAtTime(vol * 0.4, t + 0.08);
+            g.gain.exponentialRampToValueAtTime(0.0001, t + d * 1.1 + 0.15);
+            osc.connect(g);
+            g.connect(ac.destination);
+            osc.start(t);
+            osc.stop(t + d + 0.3);
+          });
+          t += d;
+        });
+
+        // Planifier la prochaine boucle juste avant la fin
+        const nextStart = startTime + HB_TOTAL_DURATION;
+        const delay = (nextStart - ac.currentTime - 0.1) * 1000;
+        setTimeout(
+          () => {
+            if (hbLoopRunning) scheduleHBLoop(ac.currentTime + 0.05);
+          },
+          Math.max(delay, 100),
+        );
+      }
+
+      function startBirthdayLoop() {
+        if (hbLoopRunning) return;
+        hbLoopRunning = true;
+        try {
+          const ac = getAC();
+          if (ac.state === "suspended") ac.resume();
+          scheduleHBLoop(ac.currentTime + 0.3);
+          // Masquer le hint
+          const hint = document.getElementById("soundHint");
+          if (hint) {
+            hint.style.transition = "opacity 0.4s";
+            hint.style.opacity = "0";
+            setTimeout(() => hint.remove(), 500);
+          }
+        } catch (e) {}
+      }
+
+      // ── DATE DYNAMIQUE (demain) ──────────────────────────────────
+      (function () {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate());
+        const day = String(tomorrow.getDate()).padStart(2, "0");
+        const month = String(tomorrow.getMonth() + 1).padStart(2, "0");
+        const year = tomorrow.getFullYear();
+        const el = document.getElementById("dateTag");
+        if (el) el.textContent = `${day} · ${month} · ${year} · 🎂`;
+      })();
+
+      // ── AUTOPLAY ROBUSTE ─────────────────────────────────────────
+      // Stratégie : créer l'AudioContext dans un inline script immédiat
+      // puis tenter resume() dès que possible — sans attendre de clic.
+      (function tryAutoplay() {
+        try {
+          if (!audioCtx)
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          if (audioCtx.state === "running") {
+            startBirthdayLoop();
+            return;
+          }
+          // Essayer resume() sans interaction (fonctionne sur certains navigateurs/contexts)
+          audioCtx
+            .resume()
+            .then(() => {
+              if (audioCtx.state === "running") startBirthdayLoop();
+            })
+            .catch(() => {});
+        } catch (e) {}
+        // Retenter toutes les 300ms jusqu'à ce que ça marche (max 10 tentatives)
+        let attempts = 0;
+        const retry = setInterval(() => {
+          attempts++;
+          if (hbLoopRunning || attempts > 10) {
+            clearInterval(retry);
+            return;
+          }
+          try {
+            if (!audioCtx)
+              audioCtx = new (
+                window.AudioContext || window.webkitAudioContext
+              )();
+            if (audioCtx.state === "running") {
+              startBirthdayLoop();
+              clearInterval(retry);
+              return;
+            }
+            audioCtx
+              .resume()
+              .then(() => {
+                if (audioCtx.state === "running") {
+                  startBirthdayLoop();
+                  clearInterval(retry);
+                }
+              })
+              .catch(() => {});
+          } catch (e) {}
+        }, 300);
+      })();
+
+      // Fallback garanti au premier geste utilisateur
+      function triggerBirthdaySound() {
+        unlockAudio();
+        startBirthdayLoop();
+      }
+      document.addEventListener("click", triggerBirthdaySound, { once: true });
+      document.addEventListener("touchend", triggerBirthdaySound, {
+        once: true,
       });
-      this.sparks = this.sparks.filter(s => s.life > 0);
-      if (!this.sparks.length) this.done = true;
-    }
-  }
 
-  draw() {
-    if (!this.exploded) {
-      this.trail.forEach((t,i) => {
-        fCtx.beginPath();
-        fCtx.arc(t.x, t.y, 2*(i/this.trail.length), 0, Math.PI*2);
-        fCtx.fillStyle = `rgba(255,220,120,${(i/this.trail.length)*.8})`;
-        fCtx.fill();
+      // ── SHOOTING STARS ──────────────────────────────────────────
+      function createShootingStar() {
+        const el = document.createElement("div");
+        el.className = "shooting-star";
+        el.style.left = Math.random() * W + "px";
+        el.style.top = Math.random() * H * 0.5 + "px";
+        el.style.animationDuration = Math.random() * 1 + 0.5 + "s";
+        el.style.opacity = Math.random() * 0.7 + 0.3;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1600);
+      }
+      setInterval(createShootingStar, 2200);
+
+      // ── CONFETTI BURST ──────────────────────────────────────────
+      const colors = [
+        "#f5c842",
+        "#ff6eb4",
+        "#00f5ff",
+        "#9b59ff",
+        "#ff4757",
+        "#2ed573",
+      ];
+      function burst(cx, cy, count = 30) {
+        for (let i = 0; i < count; i++) {
+          const el = document.createElement("div");
+          el.className = "confetti-piece";
+          el.style.left = cx + "px";
+          el.style.top = cy + "px";
+          el.style.background =
+            colors[Math.floor(Math.random() * colors.length)];
+          el.style.width = Math.random() * 8 + 4 + "px";
+          el.style.height = Math.random() * 8 + 4 + "px";
+          el.style.animationDuration = Math.random() * 2 + 1.5 + "s";
+          el.style.animationDelay = Math.random() * 0.3 + "s";
+          el.style.transform = `translateX(${(Math.random() - 0.5) * 300}px)`;
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 3000);
+        }
+      }
+      setTimeout(() => burst(W / 2, H / 2, 60), 3500);
+
+      // ── BIG CELEBRATION ─────────────────────────────────────────
+      function bigCelebration() {
+        try {
+          getAC().resume();
+        } catch (e) {}
+        unlockAudio();
+        // Applause + cheers dès le début
+        playApplause(9.0);
+
+        // confettis
+        for (let i = 0; i < 8; i++)
+          setTimeout(
+            () => burst(Math.random() * W, Math.random() * H * 0.5, 40),
+            i * 180,
+          );
+
+        // salve de fusées avec positions réparties
+        const positions = [
+          0.1, 0.25, 0.4, 0.55, 0.7, 0.85, 0.2, 0.5, 0.75, 0.35, 0.65, 0.9,
+        ];
+        positions.forEach((p, i) => {
+          setTimeout(
+            () => rockets.push(new Rocket(W * p)),
+            i * 250 + Math.random() * 100,
+          );
+        });
+
+        // continuation 9 secondes
+        let t = 0;
+        const wave = setInterval(() => {
+          t += 550;
+          rockets.push(new Rocket());
+          if (Math.random() < 0.6) rockets.push(new Rocket());
+          if (t >= 9000) clearInterval(wave);
+        }, 550);
+      }
+
+      // ── CLICK / TOUCH ───────────────────────────────────────────
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest("#celebrateBtn")) burst(e.clientX, e.clientY, 20);
       });
-      fCtx.beginPath();
-      fCtx.arc(this.x, this.y, 3, 0, Math.PI*2);
-      fCtx.fillStyle = '#fff';
-      fCtx.shadowBlur = 10; fCtx.shadowColor = '#ffe';
-      fCtx.fill(); fCtx.shadowBlur = 0;
-    } else {
-      this.sparks.forEach(s => {
-        fCtx.beginPath();
-        fCtx.arc(s.x, s.y, s.size*s.life, 0, Math.PI*2);
-        fCtx.fillStyle = s.color;
-        fCtx.globalAlpha = s.life;
-        fCtx.shadowBlur = 7; fCtx.shadowColor = s.color;
-        fCtx.fill();
-        fCtx.globalAlpha = 1; fCtx.shadowBlur = 0;
+      document.addEventListener("touchend", (e) => {
+        const t = e.changedTouches[0];
+        if (!e.target.closest("#celebrateBtn")) burst(t.clientX, t.clientY, 20);
       });
-    }
-  }
-}
 
-(function fwLoop() {
-  fCtx.clearRect(0,0,W,H);
-  rockets = rockets.filter(r => !r.done);
-  rockets.forEach(r => { r.update(); r.draw(); });
-  requestAnimationFrame(fwLoop);
-})();
+      // ── MOUSE TRAIL ─────────────────────────────────────────────
+      document.addEventListener("mousemove", (e) => {
+        if (Math.random() < 0.3) {
+          particles.push({
+            x: e.clientX,
+            y: e.clientY,
+            r: Math.random() * 3 + 1,
+            vx: (Math.random() - 0.5) * 1.5,
+            vy: (Math.random() - 0.5) * 1.5 - 1,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            opacity: 0.9,
+            pulse: 0,
+          });
+          if (particles.length > 200) particles.splice(0, 20);
+        }
+      });
 
-// ── WEB AUDIO ENGINE ────────────────────────────────────────
-let audioCtx = null;
-let audioUnlocked = false;
+      // ── BALLONS SVG ─────────────────────────────────────────────
+      const balloonPalette = [
+        {
+          body: "#f5c842",
+          shine: "#ffe99a",
+          knot: "#c9a010",
+          string: "#c9a010",
+        },
+        {
+          body: "#ff6eb4",
+          shine: "#ffb8d9",
+          knot: "#d63d8a",
+          string: "#d63d8a",
+        },
+        {
+          body: "#9b59ff",
+          shine: "#cba8ff",
+          knot: "#6a2fd4",
+          string: "#6a2fd4",
+        },
+        {
+          body: "#00f5ff",
+          shine: "#a0fbff",
+          knot: "#00b8c4",
+          string: "#00b8c4",
+        },
+        {
+          body: "#ff4757",
+          shine: "#ff9fa7",
+          knot: "#c0172a",
+          string: "#c0172a",
+        },
+        {
+          body: "#2ed573",
+          shine: "#96f5c0",
+          knot: "#1aad55",
+          string: "#1aad55",
+        },
+        {
+          body: "#ffffff",
+          shine: "#ffffff",
+          knot: "#cccccc",
+          string: "#cccccc",
+        },
+      ];
 
-function getAC() {
-  if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
-  return audioCtx;
-}
-
-// Unlock audio on first interaction (required by browsers)
-function unlockAudio() {
-  if (audioUnlocked) return;
-  try {
-    const ac = getAC();
-    const silent = ac.createBuffer(1,1,22050);
-    const src = ac.createBufferSource();
-    src.buffer = silent; src.connect(ac.destination); src.start();
-    ac.resume();
-    audioUnlocked = true;
-  } catch(e){}
-}
-document.addEventListener('click',    unlockAudio, {once:false});
-document.addEventListener('touchend', unlockAudio, {once:false});
-
-// ─── Helper: make noise buffer ───────────────────────────────
-function makeNoise(ac, dur) {
-  const buf  = ac.createBuffer(1, Math.floor(ac.sampleRate*dur), ac.sampleRate);
-  const data = buf.getChannelData(0);
-  for (let i=0; i<data.length; i++) data[i] = Math.random()*2-1;
-  return buf;
-}
-
-// ─── FIREWORK BOOM — deep thud + shimmer tail ────────────────
-function playFireworkSound() {
-  try {
-    const ac  = getAC();
-    if (ac.state==='suspended') ac.resume();
-    const now = ac.currentTime;
-
-    // 1. Deep pitched THUD (sine-based, not noise)
-    const thudOsc = ac.createOscillator();
-    thudOsc.type = 'sine';
-    thudOsc.frequency.setValueAtTime(90+Math.random()*40, now);
-    thudOsc.frequency.exponentialRampToValueAtTime(30, now+0.35);
-    const thudGain = ac.createGain();
-    thudGain.gain.setValueAtTime(1.6, now);
-    thudGain.gain.exponentialRampToValueAtTime(0.001, now+0.45);
-    thudOsc.connect(thudGain); thudGain.connect(ac.destination);
-    thudOsc.start(now); thudOsc.stop(now+0.45);
-
-    // 2. Mid PUNCH — short noise burst shaped like a hit
-    const punchSrc = ac.createBufferSource();
-    punchSrc.buffer = makeNoise(ac, 0.12);
-    const punchFlt = ac.createBiquadFilter();
-    punchFlt.type='bandpass'; punchFlt.frequency.value=280; punchFlt.Q.value=0.8;
-    const punchGain = ac.createGain();
-    punchGain.gain.setValueAtTime(1.2, now);
-    punchGain.gain.exponentialRampToValueAtTime(0.001, now+0.18);
-    punchSrc.connect(punchFlt); punchFlt.connect(punchGain); punchGain.connect(ac.destination);
-    punchSrc.start(now);
-
-    // 3. SHIMMER tail — filtered high noise fading slowly (sparkle glitter sound)
-    const shimSrc = ac.createBufferSource();
-    shimSrc.buffer = makeNoise(ac, 1.8);
-    const shimFlt = ac.createBiquadFilter();
-    shimFlt.type='highpass'; shimFlt.frequency.value=4500;
-    const shimFlt2 = ac.createBiquadFilter();
-    shimFlt2.type='lowpass'; shimFlt2.frequency.value=9000;
-    const shimGain = ac.createGain();
-    shimGain.gain.setValueAtTime(0.0, now);
-    shimGain.gain.linearRampToValueAtTime(0.28, now+0.08);
-    shimGain.gain.exponentialRampToValueAtTime(0.001, now+1.8);
-    shimSrc.connect(shimFlt); shimFlt.connect(shimFlt2); shimFlt2.connect(shimGain); shimGain.connect(ac.destination);
-    shimSrc.start(now+0.05);
-
-    // 4. WHISTLE ascent (sine sweep up) — soft, musical
-    const wOsc = ac.createOscillator();
-    wOsc.type='sine';
-    wOsc.frequency.setValueAtTime(300+Math.random()*150, now-0.5);
-    wOsc.frequency.exponentialRampToValueAtTime(1200+Math.random()*500, now);
-    const wGain = ac.createGain();
-    wGain.gain.setValueAtTime(0.12, now-0.5);
-    wGain.gain.exponentialRampToValueAtTime(0.001, now+0.02);
-    wOsc.connect(wGain); wGain.connect(ac.destination);
-    wOsc.start(now-0.5); wOsc.stop(now+0.05);
-
-  } catch(e) {}
-}
-
-// ─── APPLAUSE + CROWD CHEER ──────────────────────────────────
-function playApplause(duration=4.0) {
-  try {
-    const ac  = getAC();
-    if (ac.state==='suspended') ac.resume();
-    const now = ac.currentTime;
-
-    // Applause = many short noise bursts at random rate
-    for (let i=0; i<Math.floor(duration*18); i++) {
-      const t   = now + i*(1/18) + (Math.random()-0.5)*0.03;
-      const src = ac.createBufferSource();
-      src.buffer = makeNoise(ac, 0.04+Math.random()*0.04);
-      const flt = ac.createBiquadFilter();
-      flt.type='bandpass';
-      flt.frequency.value = 900+Math.random()*1200;
-      flt.Q.value = 0.5+Math.random()*1;
-      const g = ac.createGain();
-      // shape: fade in then slow fade out
-      const env = Math.min(i/(duration*18*0.25), 1) * Math.max(0,(1-(i/(duration*18))*1.1));
-      g.gain.setValueAtTime(env * (0.06+Math.random()*0.08), t);
-      g.gain.exponentialRampToValueAtTime(0.0001, t+0.12);
-      src.connect(flt); flt.connect(g); g.connect(ac.destination);
-      src.start(t);
-    }
-
-    // Crowd CHEER — layered sine oscillators mimicking "yaaay"
-    const cheerFreqs = [220,280,350,440,520,620,700,820];
-    cheerFreqs.forEach((f,idx) => {
-      const osc = ac.createOscillator();
-      osc.type='sine';
-      // glide up slightly (excitement)
-      osc.frequency.setValueAtTime(f*(0.9+Math.random()*0.2), now+0.1);
-      osc.frequency.linearRampToValueAtTime(f*(1.05+Math.random()*0.15), now+0.6);
-      osc.frequency.linearRampToValueAtTime(f*(0.95+Math.random()*0.1), now+duration*0.7);
-      const vib = ac.createOscillator(); // vibrato
-      vib.frequency.value = 5+Math.random()*3;
-      const vibGain = ac.createGain();
-      vibGain.gain.value = f*0.012;
-      vib.connect(vibGain); vibGain.connect(osc.frequency);
-      const g = ac.createGain();
-      g.gain.setValueAtTime(0.0001, now);
-      g.gain.linearRampToValueAtTime(0.022+Math.random()*0.018, now+0.25);
-      g.gain.setValueAtTime(0.022+Math.random()*0.018, now+duration*0.55);
-      g.gain.exponentialRampToValueAtTime(0.0001, now+duration*0.95);
-      osc.connect(g); g.connect(ac.destination);
-      osc.start(now); osc.stop(now+duration);
-      vib.start(now); vib.stop(now+duration);
-    });
-
-    // "Woooo!" high sweep
-    const wooOsc = ac.createOscillator();
-    wooOsc.type='sine';
-    wooOsc.frequency.setValueAtTime(600, now+0.05);
-    wooOsc.frequency.linearRampToValueAtTime(1100, now+0.4);
-    wooOsc.frequency.linearRampToValueAtTime(800, now+0.9);
-    const wooGain = ac.createGain();
-    wooGain.gain.setValueAtTime(0.0001, now+0.05);
-    wooGain.gain.linearRampToValueAtTime(0.09, now+0.2);
-    wooGain.gain.exponentialRampToValueAtTime(0.0001, now+1.0);
-    wooOsc.connect(wooGain); wooGain.connect(ac.destination);
-    wooOsc.start(now+0.05); wooOsc.stop(now+1.0);
-
-  } catch(e) {}
-}
-
-// ─── HAPPY BIRTHDAY melody — boucle infinie ─────────────────
-const HB_NOTES = [
-  {n:'C4',d:0.3},{n:'C4',d:0.1},{n:'D4',d:0.4},{n:'C4',d:0.4},{n:'F4',d:0.4},{n:'E4',d:0.8},
-  {n:'C4',d:0.3},{n:'C4',d:0.1},{n:'D4',d:0.4},{n:'C4',d:0.4},{n:'G4',d:0.4},{n:'F4',d:0.8},
-  {n:'C4',d:0.3},{n:'C4',d:0.1},{n:'C5',d:0.4},{n:'A4',d:0.4},{n:'F4',d:0.4},{n:'E4',d:0.4},{n:'D4',d:0.8},
-  {n:'A#4',d:0.3},{n:'A#4',d:0.1},{n:'A4',d:0.4},{n:'F4',d:0.4},{n:'G4',d:0.4},{n:'F4',d:1.0},
-];
-const NOTE_FREQ = {
-  'C4':261.63,'D4':293.66,'E4':329.63,'F4':349.23,'G4':392.00,
-  'A4':440.00,'A#4':466.16,'B4':493.88,'C5':523.25,'G5':783.99
-};
-
-// Durée totale d'une lecture (somme des durées + petit silence entre boucles)
-const HB_TOTAL_DURATION = HB_NOTES.reduce((s,n)=>s+n.d,0) + 1.2; // ~8.8s + 1.2s pause
-
-let hbLoopRunning = false;
-
-function scheduleHBLoop(startTime) {
-  const ac = getAC();
-  let t = startTime;
-
-  HB_NOTES.forEach(({n, d}) => {
-    const freq = NOTE_FREQ[n];
-    if (!freq) { t += d; return; }
-    [1, 2, 3, 4].forEach((harmonic, hi) => {
-      const osc = ac.createOscillator();
-      osc.type = hi === 0 ? 'triangle' : 'sine';
-      osc.frequency.value = freq * harmonic;
-      const g = ac.createGain();
-      const vol = [0.45, 0.16, 0.07, 0.03][hi];
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.linearRampToValueAtTime(vol, t + 0.015);
-      g.gain.exponentialRampToValueAtTime(vol * 0.4, t + 0.08);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + d * 1.1 + 0.15);
-      osc.connect(g); g.connect(ac.destination);
-      osc.start(t); osc.stop(t + d + 0.3);
-    });
-    t += d;
-  });
-
-  // Planifier la prochaine boucle juste avant la fin
-  const nextStart = startTime + HB_TOTAL_DURATION;
-  const delay = (nextStart - ac.currentTime - 0.1) * 1000;
-  setTimeout(() => {
-    if (hbLoopRunning) scheduleHBLoop(ac.currentTime + 0.05);
-  }, Math.max(delay, 100));
-}
-
-function startBirthdayLoop() {
-  if (hbLoopRunning) return;
-  hbLoopRunning = true;
-  try {
-    const ac = getAC();
-    if (ac.state === 'suspended') ac.resume();
-    scheduleHBLoop(ac.currentTime + 0.3);
-    // Masquer le hint
-    const hint = document.getElementById('soundHint');
-    if (hint) { hint.style.transition='opacity 0.4s'; hint.style.opacity='0'; setTimeout(()=>hint.remove(),500); }
-  } catch(e) {}
-}
-
-// ── DATE DYNAMIQUE (demain) ──────────────────────────────────
-(function() {
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const day   = String(tomorrow.getDate()).padStart(2,'0');
-  const month = String(tomorrow.getMonth()+1).padStart(2,'0');
-  const year  = tomorrow.getFullYear();
-  const el = document.getElementById('dateTag');
-  if (el) el.textContent = `${day} · ${month} · ${year} · 🎂`;
-})();
-
-// ── AUTOPLAY ROBUSTE ─────────────────────────────────────────
-// Stratégie : créer l'AudioContext dans un inline script immédiat
-// puis tenter resume() dès que possible — sans attendre de clic.
-(function tryAutoplay() {
-  try {
-    if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
-    if (audioCtx.state === 'running') {
-      startBirthdayLoop();
-      return;
-    }
-    // Essayer resume() sans interaction (fonctionne sur certains navigateurs/contexts)
-    audioCtx.resume().then(() => {
-      if (audioCtx.state === 'running') startBirthdayLoop();
-    }).catch(()=>{});
-  } catch(e) {}
-  // Retenter toutes les 300ms jusqu'à ce que ça marche (max 10 tentatives)
-  let attempts = 0;
-  const retry = setInterval(() => {
-    attempts++;
-    if (hbLoopRunning || attempts > 10) { clearInterval(retry); return; }
-    try {
-      if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
-      if (audioCtx.state === 'running') { startBirthdayLoop(); clearInterval(retry); return; }
-      audioCtx.resume().then(() => {
-        if (audioCtx.state === 'running') { startBirthdayLoop(); clearInterval(retry); }
-      }).catch(()=>{});
-    } catch(e) {}
-  }, 300);
-})();
-
-// Fallback garanti au premier geste utilisateur
-function triggerBirthdaySound() {
-  unlockAudio();
-  startBirthdayLoop();
-}
-document.addEventListener('click',    triggerBirthdaySound, {once:true});
-document.addEventListener('touchend', triggerBirthdaySound, {once:true});
-
-// ── SHOOTING STARS ──────────────────────────────────────────
-function createShootingStar() {
-  const el = document.createElement('div');
-  el.className = 'shooting-star';
-  el.style.left = Math.random()*W + 'px';
-  el.style.top  = Math.random()*H*.5 + 'px';
-  el.style.animationDuration = (Math.random()*1+.5) + 's';
-  el.style.opacity = Math.random()*.7+.3;
-  document.body.appendChild(el);
-  setTimeout(() => el.remove(), 1600);
-}
-setInterval(createShootingStar, 2200);
-
-// ── CONFETTI BURST ──────────────────────────────────────────
-const colors = ['#f5c842','#ff6eb4','#00f5ff','#9b59ff','#ff4757','#2ed573'];
-function burst(cx, cy, count=30) {
-  for (let i=0; i<count; i++) {
-    const el = document.createElement('div');
-    el.className = 'confetti-piece';
-    el.style.left   = cx + 'px';
-    el.style.top    = cy + 'px';
-    el.style.background = colors[Math.floor(Math.random()*colors.length)];
-    el.style.width  = (Math.random()*8+4)+'px';
-    el.style.height = (Math.random()*8+4)+'px';
-    el.style.animationDuration = (Math.random()*2+1.5)+'s';
-    el.style.animationDelay   = (Math.random()*.3)+'s';
-    el.style.transform = `translateX(${(Math.random()-.5)*300}px)`;
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 3000);
-  }
-}
-setTimeout(() => burst(W/2, H/2, 60), 3500);
-
-// ── BIG CELEBRATION ─────────────────────────────────────────
-function bigCelebration() {
-  try { getAC().resume(); } catch(e){}
-  unlockAudio();
-  // Applause + cheers dès le début
-  playApplause(9.0);
-
-  // confettis
-  for (let i=0; i<8; i++)
-    setTimeout(() => burst(Math.random()*W, Math.random()*H*.5, 40), i*180);
-
-  // salve de fusées avec positions réparties
-  const positions = [.1,.25,.4,.55,.7,.85,.2,.5,.75,.35,.65,.9];
-  positions.forEach((p,i) => {
-    setTimeout(() => rockets.push(new Rocket(W*p)), i*250 + Math.random()*100);
-  });
-
-  // continuation 9 secondes
-  let t = 0;
-  const wave = setInterval(() => {
-    t += 550;
-    rockets.push(new Rocket());
-    if (Math.random()<.6) rockets.push(new Rocket());
-    if (t >= 9000) clearInterval(wave);
-  }, 550);
-}
-
-// ── CLICK / TOUCH ───────────────────────────────────────────
-document.addEventListener('click', e => {
-  if (!e.target.closest('#celebrateBtn')) burst(e.clientX, e.clientY, 20);
-});
-document.addEventListener('touchend', e => {
-  const t = e.changedTouches[0];
-  if (!e.target.closest('#celebrateBtn')) burst(t.clientX, t.clientY, 20);
-});
-
-// ── MOUSE TRAIL ─────────────────────────────────────────────
-document.addEventListener('mousemove', e => {
-  if (Math.random()<.3) {
-    particles.push({
-      x:e.clientX, y:e.clientY,
-      r:Math.random()*3+1,
-      vx:(Math.random()-.5)*1.5, vy:(Math.random()-.5)*1.5-1,
-      color:colors[Math.floor(Math.random()*colors.length)],
-      opacity:.9, pulse:0
-    });
-    if (particles.length>200) particles.splice(0,20);
-  }
-});
-
-// ── BALLONS SVG ─────────────────────────────────────────────
-const balloonPalette = [
-  { body:'#f5c842', shine:'#ffe99a', knot:'#c9a010', string:'#c9a010' },
-  { body:'#ff6eb4', shine:'#ffb8d9', knot:'#d63d8a', string:'#d63d8a' },
-  { body:'#9b59ff', shine:'#cba8ff', knot:'#6a2fd4', string:'#6a2fd4' },
-  { body:'#00f5ff', shine:'#a0fbff', knot:'#00b8c4', string:'#00b8c4' },
-  { body:'#ff4757', shine:'#ff9fa7', knot:'#c0172a', string:'#c0172a' },
-  { body:'#2ed573', shine:'#96f5c0', knot:'#1aad55', string:'#1aad55' },
-  { body:'#ffffff', shine:'#ffffff', knot:'#cccccc', string:'#cccccc' },
-];
-
-function makeBalloonSVG(c, size) {
-  return `<svg width="${size}" height="${Math.round(size*1.55)}" viewBox="0 0 80 124" fill="none" xmlns="http://www.w3.org/2000/svg">
+      function makeBalloonSVG(c, size) {
+        return `<svg width="${size}" height="${Math.round(size * 1.55)}" viewBox="0 0 80 124" fill="none" xmlns="http://www.w3.org/2000/svg">
     <ellipse cx="40" cy="42" rx="34" ry="40" fill="${c.body}"/>
     <ellipse cx="27" cy="24" rx="10" ry="14" fill="${c.shine}" opacity="0.5"/>
     <ellipse cx="23" cy="18" rx="4"  ry="6"  fill="white"     opacity="0.3"/>
     <path d="M36 82 Q40 90 44 82 Q42 94 40 95 Q38 94 36 82Z" fill="${c.knot}"/>
     <path d="M40 95 Q32 106 40 116 Q48 126 40 124" stroke="${c.string}" stroke-width="1.4" fill="none" stroke-linecap="round"/>
   </svg>`;
-}
+      }
 
-function spawnBalloon() {
-  const c   = balloonPalette[Math.floor(Math.random()*balloonPalette.length)];
-  const size = 55 + Math.random()*60;
-  const dur  = 9  + Math.random()*11;
+      function spawnBalloon() {
+        const c =
+          balloonPalette[Math.floor(Math.random() * balloonPalette.length)];
+        const size = 55 + Math.random() * 60;
+        const dur = 9 + Math.random() * 11;
 
-  const wrap = document.createElement('div');
-  wrap.className = 'balloon-wrap';
-  wrap.style.left = (2+Math.random()*94)+'%';
-  wrap.style.animationDuration = dur+'s';
-  wrap.style.animationDelay   = (Math.random()*3)+'s';
+        const wrap = document.createElement("div");
+        wrap.className = "balloon-wrap";
+        wrap.style.left = 2 + Math.random() * 94 + "%";
+        wrap.style.animationDuration = dur + "s";
+        wrap.style.animationDelay = Math.random() * 3 + "s";
 
-  const inner = document.createElement('div');
-  inner.className = 'balloon-inner';
-  inner.innerHTML = makeBalloonSVG(c, size);
-  inner.style.animationDuration = (1.4+Math.random()*2)+'s';
-  inner.style.animationDelay   = (Math.random()*1.5)+'s';
-  inner.style.filter = `drop-shadow(0 0 10px ${c.body}88)`;
+        const inner = document.createElement("div");
+        inner.className = "balloon-inner";
+        inner.innerHTML = makeBalloonSVG(c, size);
+        inner.style.animationDuration = 1.4 + Math.random() * 2 + "s";
+        inner.style.animationDelay = Math.random() * 1.5 + "s";
+        inner.style.filter = `drop-shadow(0 0 10px ${c.body}88)`;
 
-  function pop(e) {
-    e.stopPropagation();
-    const r = wrap.getBoundingClientRect();
-    burst(r.left+r.width/2, r.top+r.height/2, 22);
-    wrap.style.transition = 'transform .12s, opacity .15s';
-    wrap.style.transform  = 'scale(1.5)';
-    wrap.style.opacity    = '0';
-    setTimeout(() => wrap.remove(), 250);
-  }
-  wrap.addEventListener('click',    pop);
-  wrap.addEventListener('touchend', pop);
+        function pop(e) {
+          e.stopPropagation();
+          const r = wrap.getBoundingClientRect();
+          burst(r.left + r.width / 2, r.top + r.height / 2, 22);
+          wrap.style.transition = "transform .12s, opacity .15s";
+          wrap.style.transform = "scale(1.5)";
+          wrap.style.opacity = "0";
+          setTimeout(() => wrap.remove(), 250);
+        }
+        wrap.addEventListener("click", pop);
+        wrap.addEventListener("touchend", pop);
 
-  wrap.appendChild(inner);
-  document.getElementById('balloon-container').appendChild(wrap);
-  setTimeout(() => { if (wrap.parentNode) wrap.remove(); }, (dur+6)*1000);
-}
+        wrap.appendChild(inner);
+        document.getElementById("balloon-container").appendChild(wrap);
+        setTimeout(
+          () => {
+            if (wrap.parentNode) wrap.remove();
+          },
+          (dur + 6) * 1000,
+        );
+      }
 
-for (let i=0; i<10; i++) setTimeout(spawnBalloon, i*700);
-setInterval(spawnBalloon, 2800);
-</script>
-</body>
+      for (let i = 0; i < 10; i++) setTimeout(spawnBalloon, i * 700);
+      setInterval(spawnBalloon, 2800);
+    </script>
+  </body>
 </html>
