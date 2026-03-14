@@ -1236,9 +1236,9 @@
       (function () {
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate());
-        const day = String(tomorrow.getDate()).padStart(2, "0");
-        const month = String(tomorrow.getMonth() + 1).padStart(2, "0");
-        const year = tomorrow.getFullYear();
+        const day = String("13");
+        const month = String("mars");
+        const year = "2026";
         const el = document.getElementById("dateTag");
         if (el) el.textContent = `${day} · ${month} · ${year} · 🎂`;
       })();
